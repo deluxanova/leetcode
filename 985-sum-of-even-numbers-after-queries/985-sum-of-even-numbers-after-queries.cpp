@@ -1,22 +1,37 @@
 class Solution {
 public:
+    
     vector<int> sumEvenAfterQueries(vector<int>& nums, vector<vector<int>>& queries) {
+        
         int sum = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] % 2 == 0) {
-                sum += nums[i];
-            }
-        }
         vector<int> ans;
-        for (int i = 0; i < queries.size(); i++) {
-            int val = queries[i][0];
-            int index = queries[i][1];
-            if (nums[index] % 2 == 0) {
-                sum -= nums[index];
+        for(auto it:nums){
+            if(it%2==0)
+                sum+=it;
+        }
+        
+        //cout<<sum<<endl;
+        for(auto q:queries){
+            int val = q[0],idx = q[1];
+            
+            if( nums[idx]%2!=0 && val%2!=0 ){ //both odd
+                cout<<"c1"<<endl;
+                sum+=(nums[idx]+val);
+                nums[idx]+=val;
             }
-            nums[index] += val;
-            if (nums[index] % 2 == 0) {
-                sum += nums[index];
+            else if( nums[idx]%2==0 && val%2!=0 ){    //num even and val odd
+                cout<<"c2"<<endl;
+                sum-=nums[idx];
+                nums[idx]+=val;
+            }
+            else if( nums[idx]%2!=0 && val%2==0 ){    //num odd and val even
+                cout<<"c3"<<endl;
+                nums[idx]+=val;    
+            }
+            else{   //both even
+                cout<<"c4"<<endl;
+                sum+=val;
+                nums[idx]+=val;
             }
             ans.push_back(sum);
         }
