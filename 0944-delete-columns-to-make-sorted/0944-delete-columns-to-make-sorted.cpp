@@ -1,25 +1,18 @@
 class Solution {
 public:
-    int checkOrder(string s){
-        string t = s;
-        sort(t.begin(),t.end());
-        return s==t;
-    }
     int minDeletionSize(vector<string>& strs) {
-        
-        int n = strs.size(),m = strs[0].size();
-        int count = 0;
-        string tmp = "";
-        
+        int n = strs.size(),m = strs[0].size(),ans = 0;
+ 
         for(int i = 0;i<m;i++){
-            tmp = "";
-            
-            for(int j = 0;j<n;j++)
-               tmp += strs[j][i];
-
-            if( !checkOrder(tmp) )
-                count++;
+            for(int j = 1;j<n;j++){
+                if( strs[j][i] < strs[j-1][i] ){
+                    ans++;
+                    break;
+                }
+            }
+               
         }
-        return count;
+        
+        return ans;
     }
 };
