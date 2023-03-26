@@ -1,13 +1,14 @@
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
-        //creating a set to check for repeat occurences no need for map as we only neec to check repeat not exact count so that information is useless.
-        unordered_set<int> st; 
+        unordered_map<int,int> mp;
         
-        for(int i = 0;i<nums.size();i++){
-            if( st.find( nums[i] )!=st.end() )
+        for(auto it:nums)
+            mp[it]++;
+        
+        for(auto it:mp){
+            if(it.second>1)
                 return true;
-            st.insert( nums[i] );
         }
         return false;
     }
